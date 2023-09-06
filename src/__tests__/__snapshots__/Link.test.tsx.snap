@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Изменяет состояние при наведении курсора 1`] = `
+<a
+  className="normal"
+  href="login"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Login
+</a>
+`;
+
+exports[`Изменяет состояние при наведении курсора 2`] = `
+<a
+  className="hovered"
+  href="login"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Login
+</a>
+`;
+
+exports[`Изменяет состояние при наведении курсора 3`] = `
+<a
+  className="normal"
+  href="login"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Login
+</a>
+`;
