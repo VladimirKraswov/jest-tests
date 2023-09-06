@@ -31,5 +31,9 @@ export const styles: IStyleSheet = {
     fontWeight: 'bold',
     fontSize: '32px',
     color: 'green',
+  },
+  footer: {
+    marginTop: '10px',
+    display: 'flex',
   }
 }

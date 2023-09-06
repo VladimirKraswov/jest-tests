@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { BASE_URL, REGISTRATION_URL } from './utils/fake';
 import { styles } from './styles';
+import { Link } from './components';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -61,11 +62,8 @@ function App() {
           />
         </div>
         <button onClick={handleRegister}>Зарегистрироваться</button>
-        <div style={styles.row}>
-          <a href="#">Забыли пароль</a>
-        </div>
-        <div style={styles.row}>
-          <a href="#">Войти</a>
+        <div style={styles.footer}>
+        <Link page="forgot">Забыли пароль</Link>&nbsp;<Link page="login">Войти</Link>
         </div>
     </div>
   );
