@@ -2,10 +2,17 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
+import { Provider } from 'react-redux';
 
 import App from '../App';
+import { store } from '../store';
 
 describe('Тестирование компонента App', () => {
+
+  const renderWithRedux = (component: any) => {
+    render(<Provider store={store}>{component}</Provider>)
+  };
+  
   // Выполнить перед началом всех тестов
   beforeAll(() => {
   })
@@ -23,7 +30,7 @@ describe('Тестирование компонента App', () => {
   })
 
   it('Поля ввода электронной почты и пароля отображаются', () => {
-    render(<App />);
+    renderWithRedux(<App />); // рендерим компонент
     const emailInput = screen.getByLabelText('Email:');
     const passwordInput = screen.getByLabelText('Пароль:');
     expect(emailInput).toBeInTheDocument();
@@ -31,21 +38,21 @@ describe('Тестирование компонента App', () => {
   });
 
   it('Поле email корректно обрабатывает ввод', () => {
-    render(<App />);
+    renderWithRedux(<App />); // рендерим компонент
     const emailInput = screen.getByLabelText('Email:');
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     expect(emailInput).toHaveValue('test@example.com');
   });
 
   it('Поле password корректно обрабатывает ввод', () => {
-    render(<App />);
+    renderWithRedux(<App />); // рендерим компонент
     const passwordInput = screen.getByLabelText('Пароль:');
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     expect(passwordInput).toHaveValue('password123');
   });
 
   it('Линки "Забыли пароль" и "Войти" отображаются', () => {
-    render(<App />);
+    renderWithRedux(<App />); // рендерим компонент
     const forgotPasswordLink = screen.getByText('Забыли пароль');
     const loginLink = screen.getByText('Войти');
     expect(forgotPasswordLink).toBeInTheDocument();
@@ -58,7 +65,7 @@ describe('Тестирование компонента App', () => {
       resolve({ status: 200 } as Response)
     }))
 
-    render(<App />); // рендерим компонент
+    renderWithRedux(<App />); // рендерим компонент
     const button = screen.getByText('Зарегистрироваться') // Находим кнопку по тексту
 
     expect(button).toBeInTheDocument(); // Проверяем, что компонент отображает кнопку
@@ -75,7 +82,7 @@ describe('Тестирование компонента App', () => {
     // Мокируем fetch для имитации ошибки ответа от сервера
     global.fetch = () => { throw new Error("Something went wrong") }
 
-    render(<App />); // рендерим компонент
+    renderWithRedux(<App />); // рендерим компонент
     const button = screen.getByText('Зарегистрироваться') // Находим кнопку по тексту
 
     expect(button).toBeInTheDocument(); // Проверяем, что компонент отображает кнопку

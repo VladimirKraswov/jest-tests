@@ -1,1 +1,1 @@
-export {Link} from './Link/Link'
+export {Link} from './Link'

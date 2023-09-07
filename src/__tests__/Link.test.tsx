@@ -2,7 +2,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { Link } from '../components/Link/Link';
+import { Link } from '../components/Link';
 
 it('Изменяет состояние при наведении курсора', () => {
   const component = renderer.create(

@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import './App.css';
-import { styles } from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Link } from './components';
+import { ErrorView } from './components/ErrorView';
 import { ENDPOINT } from './constants';
 
+import './App.css';
+import { styles } from './styles';
+
+import {selectors, actions, IState} from './store';
+
 function App() {
+  const despatch = useDispatch();
+  const error = useSelector<IState, string>(selectors.getError);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleRegister = async () => {
     try {
@@ -27,7 +35,7 @@ function App() {
        }
        
     } catch (error) {
-      setError('error')
+      despatch(actions.setError('Ошибка при регистрации'))
     }
   };
 
@@ -36,7 +44,7 @@ function App() {
   }
 
   if (error) {
-    return  <div style={styles.container}><p style={styles.error}>Ошибка при регистрации</p></div>
+    return  <div style={styles.container}><ErrorView style={styles.error}/></div>
   }
 
   return (
