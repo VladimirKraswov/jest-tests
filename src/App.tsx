@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BASE_URL, REGISTRATION_URL } from './utils/fake';
 import { styles } from './styles';
 import { Link } from './components';
+import { ENDPOINT } from './constants';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -13,22 +13,21 @@ function App() {
   const handleRegister = async () => {
     try {
       const data = { email, password };
-      const response: any = await fetch(`${BASE_URL}${REGISTRATION_URL}`, {
-        method: "POST",
-        body: JSON.stringify(data),
-       })
-
-       const responseObject = await JSON.parse(response);
+      
+      const response = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(data)
+      });
        
-       if (responseObject.status === 200) {
+       if (response?.status === 200) {
         setIsRegistered(true);
        }
        
-       return response
-    } catch (error: any) {
-      const errorObject = await JSON.parse(error);
-      console.log('Error', errorObject.error);
-      setError(errorObject.error)
+    } catch (error) {
+      setError('error')
     }
   };
 
@@ -37,7 +36,7 @@ function App() {
   }
 
   if (error) {
-    return  <div style={styles.container}><p style={styles.error}>{error}</p></div>
+    return  <div style={styles.container}><p style={styles.error}>Ошибка при регистрации</p></div>
   }
 
   return (
