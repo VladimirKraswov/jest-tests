@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event'
 
 import App from '../App';
 
-describe('App component', () => {
+describe('Тестирование компонента App', () => {
   // Выполнить перед началом всех тестов
   beforeAll(() => {
   })
